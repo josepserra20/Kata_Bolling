@@ -1,33 +1,41 @@
 
+from token import SLASH
+
+
 class Bolos:
+    
+    # Global variables
+    X = 10
+    DASH = 0
+    SLASH = 10 
 
     def __init__(self, puntos):
         self.puntos = list(puntos)
+        self.listConverter = Bolos.converter(self)
 
     def spare(self, index):
-            listConverter = Bolos.converter(self)
-            spareScore = (10 - int(listConverter[index-1])) + int(listConverter[index + 1])
+            spareScore = (Bolos.SLASH - self.listConverter[index-1]) + self.listConverter[index + 1]
             return spareScore
 
     def strike(self, index):
-        listConverter = Bolos.converter(self)
-        strikeScore = 10 + int(listConverter[index + 1]) + int(listConverter[index + 2])
+        strikeScore = Bolos.SLASH + self.listConverter[index + 1] + self.listConverter[index + 2]
         return strikeScore
         
     def converter(self):
         converterList = []
         for index, number in enumerate(self.puntos):
             if number.isdigit():
-                converterList.append(number)
+                converterList.append(int(number))
             if number == '-':
-                converterList.append('0')
+                converterList.append(Bolos.DASH)
             if number == 'X':
-                converterList.append('10')
+                converterList.append(Bolos.X)
             if number == '/':
-                converterList.append(10 - int((converterList[index - 1])))
+                converterList.append(Bolos.SLASH - int((converterList[index - 1])))
         return converterList
 
-    
+
+
     def score(self):
 
         # variables
@@ -51,9 +59,9 @@ class Bolos:
                 if number.isdigit():
                     finalScore += int(number)
                 if number == 'X':
-                    finalScore += 10
+                    finalScore += Bolos.X
                 if number == '/':
-                    finalScore += (10 - int(Bolos.converter(self)[index-1])) 
+                    finalScore += (Bolos.SLASH - int(self.listConverter[index-1])) 
         return finalScore 
 
         
