@@ -1,7 +1,4 @@
 
-from token import SLASH
-
-
 class Bolos:
     
     # Global variables
